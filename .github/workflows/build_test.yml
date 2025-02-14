@@ -1,6 +1,3 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
 name: Build and Test
 
 on:
@@ -11,39 +8,45 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
+
     - name: Install Chrome
       uses: browser-actions/setup-chrome@v1
       with:
-       chrome-version: 120
+        chrome-version: 120
+
     - name: Install dependencies
       run: dotnet restore
+
     - name: Build
       run: dotnet build --no-restore
+
     - name: Run TestProject1 tests
       env:
-       CHROMEWEBDRIVER: /usr/bin/google-chrome
-      run: 
-       echo "Running TestProject1 tests"
-       dotnet test TestProject1/TestProject1.csproj --verbosity normal
+        CHROMEWEBDRIVER: /usr/bin/google-chrome
+      run: |
+        echo "Running TestProject1 tests"
+        dotnet test TestProject1/TestProject1.csproj --verbosity normal
+
     - name: Run TestProject2 tests
       env:
-       CHROMEWEBDRIVER: /usr/bin/google-chrome
-      run: 
-       echo "Running TestProject2 tests"
-       dotnet test TestProject2/TestProject2.csproj --verbosity normal
+        CHROMEWEBDRIVER: /usr/bin/google-chrome
+      run: |
+        echo "Running TestProject2 tests"
+        dotnet test TestProject2/TestProject2.csproj --verbosity normal
+
     - name: Run TestProject3 tests
       env:
-       CHROMEWEBDRIVER: /usr/bin/google-chrome
-      run: 
-       echo "Running TestProject3 tests"
-       dotnet test TestProject3/TestProject3.csproj --verbosity normal
+        CHROMEWEBDRIVER: /usr/bin/google-chrome
+      run: |
+        echo "Running TestProject3 tests"
+        dotnet test TestProject3/TestProject3.csproj --verbosity normal
